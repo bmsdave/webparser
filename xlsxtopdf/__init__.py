@@ -6,12 +6,15 @@ import traceback
 import sys
 import win32com.client as win32
 import os
+import datetime
 
 folder = "C:\\Users\\vgorbachev\\project\\source\\parser\\xlsxtopdf\\Расчет задолженности АСВ"
 file_type = 'xlsx'
 out_folder = folder + "\\pdf"
 
 os.chdir(folder)
+
+print("Start at", datetime.datetime.utcnow())
 
 if not os.path.exists(out_folder):
     print('Creating output folder...')
@@ -51,11 +54,11 @@ for files in os.listdir("."):
                     percent = ws.Range("M" + str(i)).Value
                     print("Текущая задолженность по процентам:", percent)
                 if value == "Пени на просроченный основной долг":
-                    ws.Range("L" + str(lastrow)).Value = percent + summ
                     ws.Rows("%d:%d" % (i, lastrow - 1)).Delete()
-                    print("Общая задолженность: ", str(percent + summ))
                     break
-
+            lastrow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row + 1
+            ws.Range("L" + str(lastrow)).Value = percent + summ
+            print("Общая задолженность: ", str(percent + summ))
             ws.ExportAsFixedFormat(0, out_file)
             wb.Close(SaveChanges=False)
         except Exception as e:
@@ -63,4 +66,5 @@ for files in os.listdir("."):
             lines = traceback.format_exception(exc_type, exc_value, exc_traceback)
             print (''.join('[ERROR] ' + line for line in lines))  # Log it or whatever here
 
+print("Finish at", datetime.datetime.utcnow())
 excel.Quit()
