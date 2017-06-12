@@ -54,10 +54,11 @@ for files in os.listdir("."):
                     percent = ws.Range("M" + str(i)).Value
                     print("Текущая задолженность по процентам:", percent)
                 if value == "Пени на просроченный основной долг":
-                    ws.Rows("%d:%d" % (i, lastrow - 1)).Delete()
+                    ws.Rows("%d:%d" % (i, lastrow - 4)).Delete()
                     break
             lastrow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row + 1
-            ws.Range("L" + str(lastrow)).Value = percent + summ
+            ws.Range("A" + str(lastrow - 1)).Value = "Всего подлежит взысканию:"
+            ws.Range("L" + str(lastrow-1)).Value = percent + summ
             print("Общая задолженность: ", str(percent + summ))
             ws.ExportAsFixedFormat(0, out_file)
             wb.Close(SaveChanges=False)
