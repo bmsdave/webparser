@@ -26,7 +26,8 @@ setup(
         "numpy = 1.12.1",
         "pandas = 0.20.1",
         "tensorflow = 1.1.0",
-        "selenium = 3.4.2"
+        "selenium = 3.4.2",
+        "pdfminer.six = 20170419"
     ],
     classifiers=[
         'Environment :: Web Environment',
