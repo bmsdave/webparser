@@ -25,7 +25,7 @@ setup(
         "beautifulsoup4 = 4.6.0",
         "numpy = 1.12.1",
         "pandas = 0.20.1",
-        "tensorflow = 1.1.0",
+        'tensorflow>=1.15.2'
         "selenium = 3.4.2",
         "pdfminer.six = 20170419"
     ],
